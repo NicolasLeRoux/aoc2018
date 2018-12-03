@@ -4,7 +4,7 @@ import (
     "strconv"
 )
 
-func Solve(nbrs []string) int {
+func SolvePartOne(nbrs []string) int {
     var result int = 0
 
     for i := 0; i < len(nbrs); i++ {
@@ -18,4 +18,8 @@ func Solve(nbrs []string) int {
     }
 
     return result
+}
+
+func SolvePartTwo(nbrs []string) int {
+    return 0
 }

@@ -15,7 +15,7 @@ func main() {
     }
 
     operations := strings.Split(string(dat), "\n")
-    result := solver.Solve(operations[:len(operations) - 1])
 
+    result := solver.SolvePartOne(operations[:len(operations) - 1])
     fmt.Printf("Answer part one: %d\n", result)
 }
