@@ -21,5 +21,31 @@ func SolvePartOne(nbrs []string) int {
 }
 
 func SolvePartTwo(nbrs []string) int {
-    return 0
+    var m = make(map[int]bool)
+    var i, sum int = 0, 0
+    m[0] = true
+
+    for {
+        nb, err := strconv.Atoi(nbrs[i])
+
+        if err == nil {
+            sum += nb
+        } else {
+            panic(err)
+        }
+
+        if i < len(nbrs) - 1 {
+            i++
+        } else {
+            i = 0
+        }
+
+        if m[sum] {
+            break
+        }
+
+        m[sum] = true
+    }
+
+    return sum
 }
