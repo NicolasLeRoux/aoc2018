@@ -4,6 +4,8 @@ import (
     "strconv"
 )
 
+// SolvePartOne is the chronal calibration solver of the part one of the day 01
+// puzzle.
 func SolvePartOne(nbrs []string) int {
     var result int = 0
 
@@ -20,6 +22,8 @@ func SolvePartOne(nbrs []string) int {
     return result
 }
 
+// SolvePartTwo is the chronal calibration solver of the part two of the day 01
+// puzzle.
 func SolvePartTwo(nbrs []string) int {
     var m = make(map[int]bool)
     var i, sum int = 0, 0
@@ -34,12 +38,14 @@ func SolvePartTwo(nbrs []string) int {
             panic(err)
         }
 
+        // Make it circular
         if i < len(nbrs) - 1 {
             i++
         } else {
             i = 0
         }
 
+        // Exit at the first duplicated sum
         if m[sum] {
             break
         }
