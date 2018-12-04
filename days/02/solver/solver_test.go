@@ -52,3 +52,46 @@ func TestHasDoubleOrTriple(t *testing.T) {
         }
     }
 }
+
+func TestSolvePartTwo(t *testing.T) {
+    suites := []struct {
+        input []string; expected string
+    }{
+        {[]string{"abcde", "fghij", "klmno", "pqrst", "fguij", "axcye", "wvxyz"}, "fgij"},
+        {[]string{"aaacaaa", "aaadaaa"}, "aaaaaa"},
+    }
+
+    for _, suite := range suites {
+        output := SolvePartTwo(suite.input[:])
+
+        if output != suite.expected {
+            t.Errorf("TestSolvePartTwo(%s) got %s but expect %s", suite.input, output, suite.expected)
+        } else {
+            fmt.Printf("✓ TestSolvePartOne(%s)\n", suite.input)
+        }
+    }
+}
+
+func TestMatchingString(t *testing.T) {
+    suites := []struct {
+        inputA, inputB, expected string
+    }{
+        {"abc", "def", ""},
+        {"ab", "ac", "a"},
+        {"abc", "dbf", "b"},
+    }
+
+    for _, suite := range suites {
+        output := matchingString(suite.inputA, suite.inputB)
+
+        if output != suite.expected {
+            t.Errorf("TestSolvePartTwo(%s, %s) got %s but expect %s",
+                suite.inputA,
+                suite.inputB,
+                output,
+                suite.expected)
+        } else {
+            fmt.Printf("✓ matchingString(%s, %s)\n", suite.inputA, suite.inputB)
+        }
+    }
+}

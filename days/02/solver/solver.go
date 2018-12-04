@@ -48,3 +48,21 @@ func hasDoubleOrTriple(word string) (bool, bool) {
 
     return sumDouble > 0, sumTiple > 0
 }
+
+func SolvePartTwo(words []string) string {
+    return ""
+}
+
+func matchingString(wordA, wordB string) string {
+    lettersA := strings.Split(wordA, "")
+    lettersB := strings.Split(wordB, "")
+    var matchings []string
+
+    for i := 0; i < len(lettersA); i++ {
+        if lettersA[i] == lettersB[i] {
+            matchings = append(matchings, lettersA[i])
+        }
+    }
+
+    return strings.Join(matchings[:], "")
+}
