@@ -50,7 +50,21 @@ func hasDoubleOrTriple(word string) (bool, bool) {
 }
 
 func SolvePartTwo(words []string) string {
-    return ""
+    length := len(words[0])
+    var match string
+
+    Loop:
+        for i := 0; i < len(words) - 1; i++ {
+            for j := i + 1; j < len(words); j++ {
+                match = matchingString(words[i], words[j])
+
+                if len(match) + 1 == length {
+                    break Loop
+                }
+            }
+        }
+
+    return match
 }
 
 func matchingString(wordA, wordB string) string {
