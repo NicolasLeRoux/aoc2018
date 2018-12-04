@@ -58,3 +58,36 @@ func parseClaim(claim string) Claim {
 
     return Claim{id, offsetX, offsetY, width, height}
 }
+
+func SolvePartTwo(words []string) int {
+    fabric := make(map[string]string)
+    mapOfClaimId := make(map[string]bool)
+
+    for _, word := range words {
+        claim := parseClaim(word)
+        mapOfClaimId[claim.Id] = true
+
+        for i := claim.OffsetX; i < claim.OffsetX + claim.Width; i++ {
+            for j := claim.OffsetY; j < claim.OffsetY + claim.Height; j++ {
+                id := strings.Join([]string{strconv.Itoa(i), strconv.Itoa(j)}, ",")
+                val, ok := fabric[id]
+
+                if ok {
+                    fabric[id] = "X"
+                    delete(mapOfClaimId, claim.Id)
+                    delete(mapOfClaimId, val)
+                } else {
+                    fabric[id] = claim.Id
+                }
+            }
+        }
+    }
+
+    var idWthOverlap string
+    for key, _ := range mapOfClaimId {
+        idWthOverlap = key
+    }
+    result, _ := strconv.Atoi(strings.Trim(idWthOverlap, "#"))
+
+    return result
+}
