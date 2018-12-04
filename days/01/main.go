@@ -14,8 +14,7 @@ func main() {
         panic(err)
     }
 
-    array := strings.Split(string(dat), "\n")
-    operations := array[:len(array) - 1]
+    operations := strings.Split(string(dat), "\n")
 
     resultPartOne := solver.SolvePartOne(operations)
     fmt.Printf("Answer part one: %d\n", resultPartOne)
