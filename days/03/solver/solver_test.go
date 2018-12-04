@@ -10,6 +10,7 @@ func TestSolvePartOne(t *testing.T) {
     suites := []struct {
         input []string; expected int
     }{
+        {[]string{}, 0},
         {[]string{"#1 @ 1,3: 4x4", "#2 @ 3,1: 4x4", "#3 @ 5,5: 2x2"}, 4},
     }
 
@@ -28,10 +29,10 @@ func TestParseClaim(t *testing.T) {
     suites := []struct {
         input string; expected Claim
     }{
-        {"#1 @ 1,3: 4x4", Claim{1, 1, 3, 4, 4}},
-        {"#78 @ 242,958: 22x16", Claim{78, 242, 958, 22, 16}},
-        {"#765 @ 559,438: 29x23", Claim{765, 559, 438, 29, 23}},
-        {"#1311 @ 407,579: 27x23", Claim{1311, 407, 579, 27, 23}},
+        {"#1 @ 1,3: 4x4", Claim{"#1", 1, 3, 4, 4}},
+        {"#78 @ 242,958: 22x16", Claim{"#78", 242, 958, 22, 16}},
+        {"#765 @ 559,438: 29x23", Claim{"#765", 559, 438, 29, 23}},
+        {"#1311 @ 407,579: 27x23", Claim{"#1311", 407, 579, 27, 23}},
     }
 
     for _, suite := range suites {
