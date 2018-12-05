@@ -3,6 +3,8 @@ package solver
 import (
     "fmt"
     "testing"
+    "reflect"
+    "time"
 )
 
 func TestSolvePartOne(t *testing.T) {
@@ -37,6 +39,26 @@ func TestSolvePartOne(t *testing.T) {
             t.Errorf("TestSolvePartOne([...]) got %d but expect %d", output, suite.expected)
         } else {
             fmt.Printf("✓ TestSolvePartOne(%s)\n", suite.input)
+        }
+    }
+}
+
+func TestParseRecord(t *testing.T) {
+    timestamp, _ := time.Parse(time.RFC3339, "1518-11-01T00:00:00Z")
+
+    suites := []struct {
+        input string; expected Record
+    }{
+        {"[1518-11-01 00:00] Guard #10 begins shift", Record{timestamp, "Guard #10 begins shift"}},
+    }
+
+    for _, suite := range suites {
+        output := parseRecord(suite.input)
+
+        if !reflect.DeepEqual(output, suite.expected) {
+            t.Errorf("parseRecord(%s) got %+v but expect %+v", suite.input, output, suite.expected)
+        } else {
+            fmt.Printf("✓ parseRecord(%s)\n", suite.input)
         }
     }
 }
