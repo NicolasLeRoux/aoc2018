@@ -4,6 +4,8 @@ import (
     "time"
     "strconv"
     "sort"
+    "fmt"
+    "strings"
 )
 
 type Record struct {
@@ -24,7 +26,14 @@ func (a ByTimestamp) Less(i, j int) bool {
 }
 
 func SolvePartOne(words []string) int {
-    sort.Sort(ByTimestamp(people))
+    records := make([]Record, len(words))
+    for i := 0; i < len(words); i++ {
+        records[i] = parseRecord(words[i])
+    }
+
+    schedules := buildSchedule(records)
+
+    fmt.Printf("%+v", schedules)
 
     return 0
 }
@@ -39,4 +48,49 @@ func parseRecord(record string) Record {
     action := record[19:len(record)]
 
     return Record{timestamp, action}
+}
+
+type Schedule struct {
+    Id int
+    Sleeping [60]bool
+}
+
+func buildSchedule(records []Record) []Schedule {
+    sort.Sort(ByTimestamp(records))
+    var resp []Schedule
+    var id int
+    var start time.Time
+    var sleeping [60]bool
+
+    for i := 0; i < len(records); i++ {
+        record := records[i]
+
+        if strings.Contains(record.Action, "begins shift") {
+            if i != 0 {
+                resp = append(resp, Schedule{id, sleeping})
+                copy(sleeping[:], make([]bool, 60))
+            }
+
+            spitted := strings.Split(record.Action, " ")
+            id, _ = strconv.Atoi(strings.Trim(spitted[1], "#"))
+        } else if record.Action == "falls asleep" {
+            start = record.Timestamp
+        } else if record.Action == "wakes up" {
+            var init int
+            if start.Hour() != 0 {
+                init = 0
+            } else {
+                init = start.Minute()
+            }
+            end := record.Timestamp.Minute()
+
+            for j := init; j < end; j++ {
+                sleeping[j] = true
+            }
+        }
+    }
+
+    resp = append(resp, Schedule{id, sleeping})
+
+    return resp
 }

@@ -62,3 +62,59 @@ func TestParseRecord(t *testing.T) {
         }
     }
 }
+
+func TestBuildSchedule(t *testing.T) {
+    timestamp01, _ := time.Parse(time.RFC3339, "1518-11-01T00:00:00Z")
+    timestamp02, _ := time.Parse(time.RFC3339, "1518-11-01T00:05:00Z")
+    timestamp03, _ := time.Parse(time.RFC3339, "1518-11-01T00:25:00Z")
+    timestamp04, _ := time.Parse(time.RFC3339, "1518-11-01T00:30:00Z")
+    timestamp05, _ := time.Parse(time.RFC3339, "1518-11-01T00:55:00Z")
+    timestamp06, _ := time.Parse(time.RFC3339, "1518-11-02T00:03:00Z")
+    timestamp07, _ := time.Parse(time.RFC3339, "1518-11-02T00:05:00Z")
+    timestamp08, _ := time.Parse(time.RFC3339, "1518-11-02T00:30:00Z")
+
+    suites := []struct {
+        input []Record; expected []Schedule
+    }{
+        {[]Record {
+                {timestamp01, "Guard #10 begins shift"},
+                {timestamp02, "falls asleep"},
+                {timestamp03, "wakes up"},
+            }, []Schedule{
+                {10, [60]bool {false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}},
+            },
+        },
+        {[]Record {
+                {timestamp01, "Guard #10 begins shift"},
+                {timestamp02, "falls asleep"},
+                {timestamp03, "wakes up"},
+                {timestamp04, "falls asleep"},
+                {timestamp05, "wakes up"},
+            }, []Schedule{
+                {10, [60]bool {false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false}},
+            },
+        },
+        {[]Record {
+                {timestamp01, "Guard #10 begins shift"},
+                {timestamp02, "falls asleep"},
+                {timestamp03, "wakes up"},
+                {timestamp06, "Guard #11 begins shift"},
+                {timestamp07, "falls asleep"},
+                {timestamp08, "wakes up"},
+            }, []Schedule{
+                {10, [60]bool {false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}},
+                {11, [60]bool {false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}},
+            },
+        },
+    }
+
+    for _, suite := range suites {
+        output := buildSchedule(suite.input)
+
+        if !reflect.DeepEqual(output, suite.expected) {
+            t.Errorf("buildSchedule(%s) got %+v but expect %+v", suite.input, output, suite.expected)
+        } else {
+            fmt.Printf("✓ buildSchedule(%s)\n", suite.input)
+        }
+    }
+}
