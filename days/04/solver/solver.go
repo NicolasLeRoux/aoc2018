@@ -4,7 +4,6 @@ import (
     "time"
     "strconv"
     "sort"
-    "fmt"
     "strings"
 )
 
@@ -32,10 +31,9 @@ func SolvePartOne(words []string) int {
     }
 
     schedules := buildSchedule(records)
+    id := getBiggestSleeper(schedules)
 
-    fmt.Printf("%+v", schedules)
-
-    return 0
+    return id * getMostAsleepMinute(schedules, id)
 }
 
 func parseRecord(record string) Record {
@@ -93,4 +91,64 @@ func buildSchedule(records []Record) []Schedule {
     resp = append(resp, Schedule{id, sleeping})
 
     return resp
+}
+
+func getBiggestSleeper(schedules []Schedule) int {
+    guards := make(map[int]int)
+    for i := 0; i < len(schedules); i++ {
+        id := schedules[i].Id
+        val, ok := guards[id]
+
+        var sum int
+        for j := 0; j < 60; j++ {
+            if schedules[i].Sleeping[j] {
+                sum++
+            }
+        }
+
+        if ok {
+            guards[id] = val + sum
+        } else {
+            guards[id] = sum
+        }
+    }
+
+    var max, id int
+    for key, val := range guards {
+        if max < val {
+            max = val
+            id = key
+        }
+    }
+
+    return id
+}
+
+func getMostAsleepMinute(schedules []Schedule, id int) int {
+    minutes := make(map[int]int)
+    for i := 0; i < len(schedules); i++ {
+        if schedules[i].Id == id {
+            for j := 0; j < 60; j++ {
+                if schedules[i].Sleeping[j] {
+                    val, ok := minutes[j]
+
+                    if ok {
+                        minutes[j] = val + 1
+                    } else {
+                        minutes[j] = 1
+                    }
+                }
+            }
+        }
+    }
+
+    var max, minute int
+    for key, val := range minutes {
+        if max < val {
+            max = val
+            minute = key
+        }
+    }
+
+    return minute
 }

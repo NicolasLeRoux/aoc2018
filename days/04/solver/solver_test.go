@@ -29,7 +29,7 @@ func TestSolvePartOne(t *testing.T) {
             "[1518-11-05 00:03] Guard #99 begins shift",
             "[1518-11-05 00:45] falls asleep",
             "[1518-11-05 00:55] wakes up",
-            }, 24},
+            }, 240},
     }
 
     for _, suite := range suites {
@@ -115,6 +115,64 @@ func TestBuildSchedule(t *testing.T) {
             t.Errorf("buildSchedule(%s) got %+v but expect %+v", suite.input, output, suite.expected)
         } else {
             fmt.Printf("✓ buildSchedule(%s)\n", suite.input)
+        }
+    }
+}
+
+func TestGetBiggestSleeper(t *testing.T) {
+    suites := []struct {
+        input []Schedule; expected int
+    }{
+        {
+            []Schedule{
+                {10, [60]bool {false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}},
+                {21, [60]bool {false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}},
+                {42, [60]bool {false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}},
+            },
+            21,
+        },
+        {
+            []Schedule{
+                {10, [60]bool {false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}},
+                {21, [60]bool {false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}},
+                {10, [60]bool {false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}},
+            },
+            10,
+        },
+    }
+
+    for _, suite := range suites {
+        output := getBiggestSleeper(suite.input)
+
+        if !reflect.DeepEqual(output, suite.expected) {
+            t.Errorf("getBiggestSleeper([...]) got %d but expect %d", output, suite.expected)
+        } else {
+            fmt.Printf("✓ getBiggestSleeper([...])\n")
+        }
+    }
+}
+
+func TestGetMostAsleepMinute(t *testing.T) {
+    suites := []struct {
+        schedule []Schedule; id, expected int
+    }{
+        {
+            []Schedule{
+                {10, [60]bool {true, true, true, true, true, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}},
+                {10, [60]bool {false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}},
+            },
+            10,
+            10,
+        },
+    }
+
+    for _, suite := range suites {
+        output := getMostAsleepMinute(suite.schedule, suite.id)
+
+        if !reflect.DeepEqual(output, suite.expected) {
+            t.Errorf("getBiggestSleeper([...]) got %d but expect %d", output, suite.expected)
+        } else {
+            fmt.Printf("✓ getBiggestSleeper([...])\n")
         }
     }
 }

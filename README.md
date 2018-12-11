@@ -11,7 +11,7 @@ My golang solutions to the [advent of code 2018](http://adventofcode.com/).
 | [01](./days/01) | :star: | :star: |
 | [02](./days/02) | :star: | :star: |
 | [03](./days/03) | :star: | :star: |
-| [04](./days/04) | - | - |
+| [04](./days/04) | :star: | - |
 | [05](./days/05) | - | - |
 | [06](./days/06) | - | - |
 | [07](./days/07) | - | - |
