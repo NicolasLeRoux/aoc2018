@@ -18,4 +18,7 @@ func main() {
 
     resultPartOne := solver.SolvePartOne(records)
     fmt.Printf("Answer part one: %d\n", resultPartOne)
+
+    resultPartTwo := solver.SolvePartTwo(records)
+    fmt.Printf("Answer part two: %d\n", resultPartTwo)
 }

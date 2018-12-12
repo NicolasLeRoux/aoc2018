@@ -152,3 +152,50 @@ func getMostAsleepMinute(schedules []Schedule, id int) int {
 
     return minute
 }
+
+func findMostAsleepMinute(schedules []Schedule) (int, int) {
+    minutes := make(map[string]int)
+    for i := 0; i < len(schedules); i++ {
+        for j := 0; j < 60; j++ {
+            if schedules[i].Sleeping[j] {
+                key := strings.Join([]string{
+                    strconv.Itoa(schedules[i].Id),
+                    strconv.Itoa(j),
+                }, ",")
+                val, ok := minutes[key]
+
+                if ok {
+                    minutes[key] = val + 1
+                } else {
+                    minutes[key] = 1
+                }
+            }
+        }
+    }
+
+    var max int
+    var token string
+    for key, val := range minutes {
+        if max < val {
+            max = val
+            token = key
+        }
+    }
+    splitted := strings.Split(string(token), ",")
+    id, _ := strconv.Atoi(splitted[0])
+    minute, _ := strconv.Atoi(splitted[1])
+
+    return id, minute
+}
+
+func SolvePartTwo(words []string) int {
+    records := make([]Record, len(words))
+    for i := 0; i < len(words); i++ {
+        records[i] = parseRecord(words[i])
+    }
+
+    schedules := buildSchedule(records)
+    id, minute := findMostAsleepMinute(schedules)
+
+    return id * minute
+}
