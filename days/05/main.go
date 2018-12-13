@@ -17,4 +17,7 @@ func main() {
 
     resultPartOne := solver.SolvePartOne(polymers)
     fmt.Printf("Answer part one: %d\n", len(resultPartOne))
+
+    resultPartTwo := solver.SolvePartTwo(polymers)
+    fmt.Printf("Answer part two: %d\n", resultPartTwo)
 }
