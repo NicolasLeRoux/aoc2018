@@ -4,6 +4,7 @@ import (
     "fmt"
     "io/ioutil"
     "aoc2018/days/05/solver"
+    "time"
 )
 
 func main() {
@@ -15,9 +16,15 @@ func main() {
 
     polymers := string(dat)
 
+    start := time.Now()
     resultPartOne := solver.SolvePartOne(polymers)
-    fmt.Printf("Answer part one: %d\n", len(resultPartOne))
+    t := time.Now()
+    elapsed := t.Sub(start)
+    fmt.Printf("Answer part one: %d (%+v)\n", len(resultPartOne), elapsed)
 
+    start = time.Now()
     resultPartTwo := solver.SolvePartTwo(polymers)
-    fmt.Printf("Answer part two: %d\n", resultPartTwo)
+    t = time.Now()
+    elapsed = t.Sub(start)
+    fmt.Printf("Answer part two: %d (%+v)\n", resultPartTwo, elapsed)
 }
