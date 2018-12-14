@@ -6,39 +6,31 @@ import (
 
 func SolvePartOne(polymer string) string {
     splitted := strings.Split(polymer, "")
+    var stack []string
+    stack = append(stack, splitted[0])
 
-    for i := 0; i < len(splitted); i++ {
+    for i := 1; i < len(splitted); i++ {
         letter := splitted[i]
+        previous := stack[len(stack) - 1]
 
-        if isUpperCase(letter) {
-            previous, next := getAdjacent(splitted, i)
-            lower := strings.ToLower(letter)
-
-            if lower == previous {
-                splitted = append(splitted[:i - 1], splitted[i + 1:]...)
-                i = max(0, i - 3)
-            } else if lower == next {
-                splitted = append(splitted[:i], splitted[i + 2:]...)
-                i = max(0, i - 2)
-            }
+        if strings.ToUpper(letter) == strings.ToUpper(previous) &&
+            (isUpperCase(letter) && isLowerCase(previous) ||
+            isUpperCase(previous) && isLowerCase(letter)) {
+            stack = stack[:len(stack) - 1]
+        } else {
+            stack = append(stack, letter)
         }
     }
 
-    return strings.Join(splitted, "")
+    return strings.Join(stack, "")
 }
 
 func isUpperCase(word string) bool {
     return strings.ToUpper(word) == word
 }
 
-func getAdjacent(array []string, idx int) (string, string) {
-    if idx == 0 {
-        return "", array[1]
-    } else if idx < len(array) - 1 {
-        return array[idx - 1], array[idx + 1]
-    } else {
-        return array[idx - 1], ""
-    }
+func isLowerCase(word string) bool {
+    return strings.ToLower(word) == word
 }
 
 func max(a, b int) int {
