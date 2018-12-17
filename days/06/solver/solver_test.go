@@ -28,3 +28,28 @@ func TestSolvePartOne(t *testing.T) {
         }
     }
 }
+
+func TestParseCoord(t *testing.T) {
+    suites := []struct {
+        input string; expectedA, expectedB int
+    }{
+        {"1, 1", 1, 1},
+        {"259, 316", 259, 316},
+        {"213, 120", 213, 120},
+    }
+
+    for _, suite := range suites {
+        outputA, outputB := parseCoord(suite.input)
+
+        if outputA != suite.expectedA || outputB != suite.expectedB {
+            t.Errorf("TestSolvePartOne('%s') got '%d' and '%d' but expect '%d' and '%d'",
+                suite.input,
+                outputA,
+                outputB,
+                suite.expectedA,
+                suite.expectedB)
+        } else {
+            fmt.Printf("✓ TestSolvePartOne('%s')\n", suite.input)
+        }
+    }
+}
