@@ -43,15 +43,31 @@ func max(a, b int) int {
 
 func SolvePartTwo(polymer string) int {
     mapResult := make(map[string]int)
+    splitted := strings.Split(polymer, "")
     aphabet := []string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
         "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
         "Z"}
 
     for i := 0; i < len(aphabet); i++ {
-        shortenedPolymer := removeLetter(polymer, aphabet[i])
-        resultingPolymer := SolvePartOne(shortenedPolymer)
+        var stack []string
+        stack = append(stack, splitted[0])
 
-        mapResult[aphabet[i]] = len(resultingPolymer)
+        for j := 1; j < len(splitted); j++ {
+            letter := splitted[j]
+            previous := stack[len(stack) - 1]
+
+            if aphabet[i] != letter && strings.ToLower(aphabet[i]) != letter {
+                if strings.ToUpper(letter) == strings.ToUpper(previous) &&
+                    (isUpperCase(letter) && isLowerCase(previous) ||
+                    isUpperCase(previous) && isLowerCase(letter)) {
+                    stack = stack[:len(stack) - 1]
+                } else {
+                    stack = append(stack, letter)
+                }
+            }
+        }
+
+        mapResult[aphabet[i]] = len(strings.Join(stack, ""))
     }
 
     var smallest int = len(polymer)
@@ -62,17 +78,4 @@ func SolvePartTwo(polymer string) int {
     }
 
     return smallest
-}
-
-func removeLetter(polymers string, letter string) string {
-    splitted := strings.Split(polymers, "")
-
-    for i := 0; i < len(splitted); i++ {
-        if letter == splitted[i] || strings.ToLower(letter) == splitted[i] {
-            splitted = append(splitted[:i], splitted[i + 1:]...)
-            i = max(0, i - 1)
-        }
-    }
-
-    return strings.Join(splitted, "")
 }

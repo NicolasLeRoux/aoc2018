@@ -23,7 +23,7 @@ func main() {
     fmt.Printf("Answer part one: %d (%+v)\n", len(resultPartOne), elapsed)
 
     start = time.Now()
-    resultPartTwo := solver.SolvePartTwo(polymers) // 4552 (1.597957531s)
+    resultPartTwo := solver.SolvePartTwo(polymers) // 4552 (164.257525ms)
     t = time.Now()
     elapsed = t.Sub(start)
     fmt.Printf("Answer part two: %d (%+v)\n", resultPartTwo, elapsed)
