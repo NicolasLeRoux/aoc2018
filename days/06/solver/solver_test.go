@@ -56,21 +56,24 @@ func TestParseCoord(t *testing.T) {
 
 func TestClosestCoord(t *testing.T) {
     suites := []struct {
-        current Coord; coords map[int]Coord; expected int
+        current Coord; coords map[int]Coord; expected int; multi bool
     }{
-        {Coord{1, 1}, map[int]Coord{2: Coord{10, 10}}, 2},
-        {Coord{1, 1}, map[int]Coord{1: Coord{2, 2}, 2: Coord{3, 3}}, 1},
+        {Coord{1, 1}, map[int]Coord{2: Coord{10, 10}}, 2, true},
+        {Coord{1, 1}, map[int]Coord{1: Coord{2, 2}, 2: Coord{3, 3}}, 1, true},
+        {Coord{2, 2}, map[int]Coord{1: Coord{1, 1}, 2: Coord{3, 3}}, 1, false},
     }
 
     for _, suite := range suites {
-        output := closestCoord(suite.current, suite.coords)
+        outputA, outputB := closestCoord(suite.current, suite.coords)
 
-        if output != suite.expected {
-            t.Errorf("TestclosestCoord('%+v', '%+v') got '%d' but expect '%d'",
+        if outputA != suite.expected && outputB != suite.multi {
+            t.Errorf("TestclosestCoord('%+v', '%+v') got '%d' and '%t' but expect '%d' and '%t'",
                 suite.current,
                 suite.coords,
-                output,
-                suite.expected)
+                outputA,
+                outputB,
+                suite.expected,
+                suite.multi)
         } else {
             fmt.Printf("✓ TestclosestCoord('%+v', '%+v')\n", suite.current, suite.coords)
         }

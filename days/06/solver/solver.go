@@ -57,6 +57,21 @@ func parseCoord(coord string) (int, int) {
     return x, y
 }
 
-func closestCoord(current Coord, coords map[int]Coord) int {
-    return 0
+func closestCoord(current Coord, coords map[int]Coord) (int, bool) {
+    var minDist, idx int = 1000, 0
+    var single bool = true
+
+    for key, val := range coords {
+        dist := (val.X - current.X) + (val.Y - current.Y)
+
+        if dist < minDist {
+            minDist = dist
+            idx = key
+            single = true
+        } else if dist == minDist {
+            single = false
+        }
+    }
+
+    return idx, single
 }
