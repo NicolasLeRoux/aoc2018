@@ -13,7 +13,7 @@ My golang solutions to the [advent of code 2018](http://adventofcode.com/).
 | [03](./days/03) | :star: | :star: |
 | [04](./days/04) | :star: | :star: |
 | [05](./days/05) | :star: | :star: |
-| [06](./days/06) | - | - |
+| [06](./days/06) | :star: | - |
 | [07](./days/07) | - | - |
 | [08](./days/08) | - | - |
 | [09](./days/09) | - | - |
