@@ -136,3 +136,56 @@ func maxArea(area map[int]int) (int, int) {
 
     return maxVal, maxKey
 }
+
+func SolvePartTwo(lines []string, limit int) int {
+    grid := make(map[string]int)
+    coords := make(map[int]Coord)
+    var xMin, xMax, yMin, yMax int = 0, 0, 0, 0
+
+    for i := 0; i < len(lines); i++ {
+        x, y := parseCoord(lines[i])
+        coords[i] = Coord{x, y}
+        if x > xMax {
+            xMax = x
+        }
+        if y > yMax {
+            yMax = y
+        }
+    }
+
+    for x := xMin; x <= xMax; x++ {
+        for y := yMin; y <= yMax; y++ {
+            key := strings.Join([]string{strconv.Itoa(x), strconv.Itoa(y)}, ", ")
+            _, ok := grid[key]
+
+            if !ok {
+                dist := getAbsoluteValue(Coord{x, y}, coords)
+
+                grid[key] = dist
+            }
+        }
+    }
+
+    var result int = 0
+    for _, val := range grid {
+
+        if val < limit {
+            result += 1
+        }
+    }
+
+    return result
+}
+
+func getAbsoluteValue(current Coord, coords map[int]Coord) int {
+    var absoluteValue int = 0
+
+    for _, val := range coords {
+        dist := int(math.Abs(float64(val.X - current.X)) +
+            math.Abs(float64(val.Y - current.Y)))
+
+        absoluteValue += dist
+    }
+
+    return absoluteValue
+}

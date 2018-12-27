@@ -79,3 +79,61 @@ func TestClosestCoord(t *testing.T) {
         }
     }
 }
+
+func TestSolvePartTwo(t *testing.T) {
+    suites := []struct {
+        input []string; limit, expected int
+    }{
+        {[]string{
+            "1, 1",
+            "1, 6",
+            "8, 3",
+            "3, 4",
+            "5, 5",
+            "8, 9"}, 32, 16},
+    }
+
+    for _, suite := range suites {
+        output := SolvePartTwo(suite.input[:], suite.limit)
+
+        if output != suite.expected {
+            t.Errorf("TestSolvePartTwo('%s', '%d') got '%d' but expect '%d'",
+                suite.input,
+                suite.limit,
+                output,
+                suite.expected)
+        } else {
+            fmt.Printf("✓ TestSolvePartTwo('%s', '%d')\n", suite.input, suite.limit)
+        }
+    }
+}
+
+func TestGetAbsoluteValue(t *testing.T) {
+    suites := []struct {
+        current Coord; coords map[int]Coord; expected int
+    }{
+        {Coord{1, 1}, map[int]Coord{2: Coord{10, 10}}, 18},
+        {Coord{1, 1}, map[int]Coord{1: Coord{2, 2}, 2: Coord{3, 3}}, 6},
+        {Coord{2, 2}, map[int]Coord{1: Coord{1, 1}, 2: Coord{3, 3}}, 4},
+        {Coord{4, 3}, map[int]Coord{1: Coord{1, 1}, 2: Coord{1, 6},
+            3: Coord{8, 3}, 4: Coord{3, 4}, 5: Coord{5, 5}, 6: Coord{8, 9}}, 30},
+        {Coord{2, 4}, map[int]Coord{1: Coord{1, 1}, 2: Coord{1, 6},
+            3: Coord{8, 3}, 4: Coord{3, 4}, 5: Coord{5, 5}, 6: Coord{8, 9}}, 30},
+        {Coord{4, 4}, map[int]Coord{1: Coord{1, 1}, 2: Coord{1, 6},
+            3: Coord{8, 3}, 4: Coord{3, 4}, 5: Coord{5, 5}, 6: Coord{8, 9}}, 28},
+    }
+
+    for _, suite := range suites {
+        output := getAbsoluteValue(suite.current, suite.coords)
+
+        if output != suite.expected {
+            t.Errorf("TestGetAbsoluteValue('%+v', '%+v') got '%d' but expect '%d'",
+                suite.current,
+                suite.coords,
+                output,
+                suite.expected)
+        } else {
+            fmt.Printf("✓ TestGetAbsoluteValue('%+v', '%+v')\n", suite.current, suite.coords)
+        }
+    }
+}
