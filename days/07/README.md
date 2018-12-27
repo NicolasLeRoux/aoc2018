@@ -1,31 +1,14 @@
 # Day 7: The Sum of Its Parts
 
-You find yourself standing on a snow-covered coastline; apparently, you landed a
-little off course. The region is too hilly to see the North Pole from here, but
-you do spot some Elves that seem to be trying to unpack something that washed
-ashore. It's quite cold out, so you decide to risk creating a paradox by asking
-them for directions.
+You find yourself standing on a snow-covered coastline; apparently, you landed a little off course. The region is too hilly to see the North Pole from here, but you do spot some Elves that seem to be trying to unpack something that washed ashore. It's quite cold out, so you decide to risk creating a paradox by asking them for directions.
 
-_Oh, are you the search party?_ Somehow, you can understand whatever Elves from
-the year 1018 speak; you assume it's
-[Ancient Nordic Elvish](https://adventofcode.com/2015/day/6). Could the device
-on your wrist also be a translator? _Those clothes don't look very warm; take
-this._ They hand you a heavy coat.
+_Oh, are you the search party?_ Somehow, you can understand whatever Elves from the year 1018 speak; you assume it's [Ancient Nordic Elvish](https://adventofcode.com/2015/day/6). Could the device on your wrist also be a translator? _Those clothes don't look very warm; take this._ They hand you a heavy coat.
 
-_We do need to find our way back to the North Pole, but we have higher
-priorities at the moment. You see, believe it or not, this box contains
-something that will solve all of Santa's transportation problems - at least,
-that's what it looks like from the pictures in the instructions._ It doesn't
-seem like they can read whatever language it's in, but you can: _Sleigh kit.
-Some assembly required._
+_We do need to find our way back to the North Pole, but we have higher priorities at the moment. You see, believe it or not, this box contains something that will solve all of Santa's transportation problems - at least, that's what it looks like from the pictures in the instructions._ It doesn't seem like they can read whatever language it's in, but you can: _Sleigh kit. Some assembly required._
 
-_'Sleigh'? What a wonderful name! You must help us assemble this 'sleigh' at
-once!_ They start excitedly pulling more parts out of the box.
+_'Sleigh'? What a wonderful name! You must help us assemble this 'sleigh' at once!_ They start excitedly pulling more parts out of the box.
 
-The instructions specify a series of steps and requirements about which steps
-must be finished before others can begin (your puzzle input). Each step is
-designated by a single letter. For example, suppose you have the following
-instructions:
+The instructions specify a series of steps and requirements about which steps must be finished before others can begin (your puzzle input). Each step is designated by a single letter. For example, suppose you have the following instructions:
 
 ```txt
 Step C must be finished before step A can begin.
@@ -47,9 +30,7 @@ C      -->D----->E
   ---->F-----
 ```
 
-Your first goal is to determine the order in which the steps should be
-completed. If more than one step is ready, choose the step which is first
-alphabetically. In this example, the steps would be completed as follows:
+Your first goal is to determine the order in which the steps should be completed. If more than one step is ready, choose the step which is first alphabetically. In this example, the steps would be completed as follows:
 - Only `C` is available, and so it is done first.
 - Next, both `A` and `F` are available. `A` is first alphabetically, so it is done
 next.
