@@ -33,3 +33,28 @@ func TestSolvePartOne(t *testing.T) {
         }
     }
 }
+
+func TestSolvePartTwo(t *testing.T) {
+    suites := []struct {
+        input []string; nbWorkers, stepDuration, expected int
+    }{
+        {[]string{
+            "Step C must be finished before step A can begin.",
+            "Step C must be finished before step F can begin.",
+            "Step A must be finished before step B can begin.",
+            "Step A must be finished before step D can begin.",
+            "Step B must be finished before step E can begin.",
+            "Step D must be finished before step E can begin.",
+            "Step F must be finished before step E can begin."}, 2, 0, 15},
+    }
+
+    for _, suite := range suites {
+        output := SolvePartTwo(suite.input[:], suite.nbWorkers, suite.stepDuration)
+
+        if output != suite.expected {
+            t.Errorf("TestSolvePartTwo('[...]') got '%d' but expect '%d'", output, suite.expected)
+        } else {
+            fmt.Printf("✓ TestSolvePartTwo('[...]')\n")
+        }
+    }
+}
