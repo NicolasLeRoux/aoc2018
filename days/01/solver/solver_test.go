@@ -47,3 +47,9 @@ func TestSolvePartTwo(t *testing.T) {
         }
     }
 }
+
+func BenchmarkSolvePartOne(t *testing.B) {
+    for i := 0; i < t.N; i++ {
+        SolvePartOne([]string{"+1", "-2", "+3", "+1"})
+    }
+}
