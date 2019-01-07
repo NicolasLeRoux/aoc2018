@@ -5,6 +5,7 @@ import (
     "io/ioutil"
     "strings"
     "./solver"
+    "time"
 )
 
 func main() {
@@ -16,9 +17,15 @@ func main() {
 
     records := strings.Split(string(dat), "\n")
 
-    resultPartOne := solver.SolvePartOne(records)
-    fmt.Printf("Answer part one: %d\n", resultPartOne)
+    start := time.Now()
+    resultPartOne := solver.SolvePartOne(records) // 67558 (598.217µs)
+    t := time.Now()
+    elapsed := t.Sub(start)
+    fmt.Printf("Answer part one: %d (%+v)\n", resultPartOne, elapsed)
 
-    resultPartTwo := solver.SolvePartTwo(records)
-    fmt.Printf("Answer part two: %d\n", resultPartTwo)
+    start = time.Now()
+    resultPartTwo := solver.SolvePartTwo(records) // 78990 (1.864759ms)
+    t = time.Now()
+    elapsed = t.Sub(start)
+    fmt.Printf("Answer part two: %d (%+v)\n", resultPartTwo, elapsed)
 }
