@@ -4,7 +4,7 @@ import (
     "fmt"
     "io/ioutil"
     "strings"
-    "aoc2018/days/03/solver"
+    "./solver"
 )
 
 func main() {
