@@ -132,6 +132,20 @@ func SolvePartTwo(instructions []string, nbWorkers, stepDuration int) int {
     for len(deps) != 0 {
         var ready []string
 
+        for id, load := range workers {
+            if load.Duration == 0 {
+                workers[id] = Load{0, "."}
+
+                for item, childs := range deps {
+                    for i := 0; i < len(childs); i++ {
+                        if childs[i] == load.Name {
+                            deps[item] = append(childs[:i], childs[i+1:]...)
+                        }
+                    }
+                }
+            }
+        }
+
         // Extract item wth deps
         for item, childs := range deps {
             if len(childs) == 0 {
@@ -142,26 +156,26 @@ func SolvePartTwo(instructions []string, nbWorkers, stepDuration int) int {
         sort.Sort(ByAlphabetical(ready))
 
         for id, load := range workers {
-            if load.Name == "." && len(ready) > 0 {
+            if load.Duration == 0 && len(ready) > 0 {
                 first := ready[0]
                 ready = ready[1:]
                 delete(deps, first)
 
                 workers[id] = Load{stepDuration + letters[first] - 1, first}
-            } else if load.Name != "." {
-                if load.Duration != 0 {
-                    workers[id] = Load{load.Duration - 1, load.Name}
-                } else {
-                    workers[id] = Load{0, "."}
+            } else if load.Duration != 0 {
+                workers[id] = Load{load.Duration - 1, load.Name}
+            }
+        }
 
-                    for item, childs := range deps {
-                        for i := 0; i < len(childs); i++ {
-                            if childs[i] == load.Name {
-                                deps[item] = append(childs[:i], childs[i+1:]...)
-                            }
-                        }
-                    }
-                }
+        duration++
+    }
+
+    for len(workers) != 0 {
+        for id, load := range workers {
+            if load.Duration <= 1 {
+                delete(workers, id)
+            } else {
+                workers[id] = Load{load.Duration - 1, load.Name}
             }
         }
 

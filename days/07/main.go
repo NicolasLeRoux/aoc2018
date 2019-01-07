@@ -24,7 +24,7 @@ func main() {
     fmt.Printf("Answer part one: %s (%+v)\n", resultPartOne, elapsed)
 
     start = time.Now()
-    resultPartTwo := solver.SolvePartTwo(instructions, 5, 60) // 841, wrong, too low... (517.176µs)
+    resultPartTwo := solver.SolvePartTwo(instructions, 5, 60) // 896 (1.561888ms)
     t = time.Now()
     elapsed = t.Sub(start)
     fmt.Printf("Answer part two: %d (%+v)\n", resultPartTwo, elapsed)
