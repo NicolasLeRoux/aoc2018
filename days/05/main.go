@@ -3,7 +3,7 @@ package main
 import (
     "fmt"
     "io/ioutil"
-    "aoc2018/days/05/solver"
+    "./solver"
     "time"
 )
 

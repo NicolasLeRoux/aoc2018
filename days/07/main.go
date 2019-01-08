@@ -4,7 +4,7 @@ import (
     "fmt"
     "io/ioutil"
     "strings"
-    "aoc2018/days/07/solver"
+    "./solver"
     "time"
 )
 
@@ -22,4 +22,10 @@ func main() {
     t := time.Now()
     elapsed := t.Sub(start)
     fmt.Printf("Answer part one: %s (%+v)\n", resultPartOne, elapsed)
+
+    start = time.Now()
+    resultPartTwo := solver.SolvePartTwo(instructions, 5, 60) // 896 (1.561888ms)
+    t = time.Now()
+    elapsed = t.Sub(start)
+    fmt.Printf("Answer part two: %d (%+v)\n", resultPartTwo, elapsed)
 }

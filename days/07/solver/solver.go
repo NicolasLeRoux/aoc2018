@@ -91,9 +91,9 @@ type Load struct {
 func SolvePartTwo(instructions []string, nbWorkers, stepDuration int) int {
     deps := make(map[string][]string)
     parents := make(map[string][]string)
-    letters := map[string]int{"A": 1; "B": 2; "C": 3; "D": 4; "E": 5; "F": 6; "G": 7;
-        "H": 8; "I": 9; "J": 10; "K": 11; "L": 12; "M": 13; "N": 14; "O": 15; "P": 16;
-        "Q": 17; "R": 18; "S": 19; "T": 20; "U": 21; "V"; 22; "W": 23; "X": 24; "Y": 25;
+    letters := map[string]int{"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7,
+        "H": 8, "I": 9, "J": 10, "K": 11, "L": 12, "M": 13, "N": 14, "O": 15, "P": 16,
+        "Q": 17, "R": 18, "S": 19, "T": 20, "U": 21, "V": 22, "W": 23, "X": 24, "Y": 25,
         "Z": 26}
 
     for i := 0; i < len(instructions); i++ {
@@ -132,6 +132,20 @@ func SolvePartTwo(instructions []string, nbWorkers, stepDuration int) int {
     for len(deps) != 0 {
         var ready []string
 
+        for id, load := range workers {
+            if load.Duration == 0 {
+                workers[id] = Load{0, "."}
+
+                for item, childs := range deps {
+                    for i := 0; i < len(childs); i++ {
+                        if childs[i] == load.Name {
+                            deps[item] = append(childs[:i], childs[i+1:]...)
+                        }
+                    }
+                }
+            }
+        }
+
         // Extract item wth deps
         for item, childs := range deps {
             if len(childs) == 0 {
@@ -142,29 +156,31 @@ func SolvePartTwo(instructions []string, nbWorkers, stepDuration int) int {
         sort.Sort(ByAlphabetical(ready))
 
         for id, load := range workers {
-            if load.Name == "." && len(ready) > 0 {
+            if load.Duration == 0 && len(ready) > 0 {
                 first := ready[0]
                 ready = ready[1:]
                 delete(deps, first)
 
-                workers[id] = Load{stepDuration + letters[first], first}
-            } else if load.Name != "." {
-                if load.Duration != 0 {
-                    workers[id] = Load{load.Duration - 1, load.Name}
-                } else {
-                    for item, childs := range deps {
-                        for i := 0; i < len(childs); i++ {
-                            if childs[i] == load.Name {
-                                deps[item] = append(childs[:i], childs[i+1:]...)
-                            }
-                        }
-                    }
-                }
+                workers[id] = Load{stepDuration + letters[first] - 1, first}
+            } else if load.Duration != 0 {
+                workers[id] = Load{load.Duration - 1, load.Name}
             }
         }
 
         duration++
     }
 
-    return 0
+    for len(workers) != 0 {
+        for id, load := range workers {
+            if load.Duration <= 1 {
+                delete(workers, id)
+            } else {
+                workers[id] = Load{load.Duration - 1, load.Name}
+            }
+        }
+
+        duration++
+    }
+
+    return duration
 }

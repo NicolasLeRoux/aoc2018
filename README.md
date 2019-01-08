@@ -14,8 +14,8 @@ My golang solutions to the [advent of code 2018](http://adventofcode.com/).
 | [04](./days/04) | :star: | :star: |
 | [05](./days/05) | :star: | :star: |
 | [06](./days/06) | :star: | :star: |
-| [07](./days/07) | :star: | - |
-| [08](./days/08) | - | - |
+| [07](./days/07) | :star: | :star: |
+| [08](./days/08) | :star: | - |
 | [09](./days/09) | - | - |
 | [10](./days/10) | - | - |
 | [11](./days/11) | - | - |
