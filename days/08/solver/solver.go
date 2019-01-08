@@ -13,6 +13,45 @@ type Node struct {
 }
 
 func SolvePartOne(items []string) int {
+    _, flatNode := buildTree(items)
+
+    sum := 0
+    for i := 0; i < len(flatNode); i++ {
+        for j := 0; j < len(flatNode[i].Metadata); j++ {
+            sum += flatNode[i].Metadata[j]
+        }
+    }
+
+    return sum
+}
+
+func SolvePartTwo(items []string) int {
+    rootNode, _ := buildTree(items)
+
+    return calculNodeValue(rootNode)
+}
+
+func calculNodeValue(node Node) int {
+    sum := 0
+
+    if len(node.Childs) == 0 {
+        for i := 0; i < len(node.Metadata); i++ {
+            sum += node.Metadata[i]
+        }
+    } else {
+        for i := 0; i < len(node.Metadata); i++ {
+            idx := node.Metadata[i] - 1
+
+            if idx < len(node.Childs) {
+                sum += calculNodeValue(*node.Childs[idx])
+            }
+        }
+    }
+
+    return sum
+}
+
+func buildTree(items []string) (Node, []*Node) {
     nbChild, _ := strconv.Atoi(items[0])
     nbMetadata, _ := strconv.Atoi(items[1])
     rootNode := Node{
@@ -47,12 +86,5 @@ func SolvePartOne(items []string) int {
         }
     }
 
-    sum := 0
-    for i := 0; i < len(flatNode); i++ {
-        for j := 0; j < len(flatNode[i].Metadata); j++ {
-            sum += flatNode[i].Metadata[j]
-        }
-    }
-
-    return sum
+    return rootNode, flatNode
 }
