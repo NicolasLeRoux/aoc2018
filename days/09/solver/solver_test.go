@@ -48,3 +48,31 @@ func TestSolvePartOne(t *testing.T) {
         })
     }
 }
+
+func TestParse(t *testing.T) {
+    suites := []struct {
+        description, input string; expectedA, expectedB int
+    }{
+        {
+            "Should return 10 and 1618 for the given sentence.",
+            "10 players; last marble is worth 1618 points",
+            10,
+            1618,
+        },
+    }
+
+    for _, suite := range suites {
+        t.Run(suite.description, func(t *testing.T) {
+            outputA, outputB := parse(suite.input)
+
+            if outputA != suite.expectedA || outputB != suite.expectedB {
+                t.Errorf("TestSolvePartOne('%s') got %d and %d but expect %d and %d",
+                         suite.input,
+                         outputA,
+                         outputB,
+                         suite.expectedA,
+                         suite.expectedB)
+            }
+        })
+    }
+}
