@@ -66,12 +66,51 @@ func TestParse(t *testing.T) {
             outputA, outputB := parse(suite.input)
 
             if outputA != suite.expectedA || outputB != suite.expectedB {
-                t.Errorf("TestSolvePartOne('%s') got %d and %d but expect %d and %d",
+                t.Errorf("TestParse('%s') got %d and %d but expect %d and %d",
                          suite.input,
                          outputA,
                          outputB,
                          suite.expectedA,
                          suite.expectedB)
+            }
+        })
+    }
+}
+
+func TestGetCircularIndex(t *testing.T) {
+    suites := []struct {
+        description string; length, index, expected int
+    }{
+        {
+            "Should return 3 for the index 3 given a slice of 3 items.",
+            3,
+            3,
+            3,
+        },
+        {
+            "Should return 1 for the index 5 given a slice of 4 items.",
+            4,
+            5,
+            1,
+        },
+        {
+            "Should return 2 for the index 12 given a slice of 10 items.",
+            5,
+            3,
+            3,
+        },
+    }
+
+    for _, suite := range suites {
+        t.Run(suite.description, func(t *testing.T) {
+            output := getCircularIndex(suite.length, suite.index)
+
+            if output != suite.expected {
+                t.Errorf("TestGetCircularIndex(%d, %d) got %d but expect %d",
+                         suite.length,
+                         suite.index,
+                         output,
+                         suite.expected)
             }
         })
     }
