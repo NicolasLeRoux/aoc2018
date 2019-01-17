@@ -56,7 +56,9 @@ func buildTree(items []string) (Node, []*Node) {
     nbMetadata, _ := strconv.Atoi(items[1])
     rootNode := Node{
         NbChild: nbChild,
+        Childs: make([]*Node, 0, nbChild),
         NbMetadata: nbMetadata,
+        Metadata: make([]int, 0, nbMetadata),
     }
     flatNode := []*Node{&rootNode}
     currentNode := &rootNode
@@ -71,7 +73,9 @@ func buildTree(items []string) (Node, []*Node) {
             node := Node{
                 Parent: currentNode,
                 NbChild: number,
+                Childs: make([]*Node, 0, number),
                 NbMetadata: next,
+                Metadata: make([]int, 0, next),
             }
             i++
 
