@@ -82,6 +82,12 @@ func TestGetCircularIndex(t *testing.T) {
         description string; length, index, expected int
     }{
         {
+            "Should return 1 for the index 3 given a slice of 1 item.",
+            1,
+            3,
+            1,
+        },
+        {
             "Should return 3 for the index 3 given a slice of 3 items.",
             3,
             3,
@@ -94,7 +100,7 @@ func TestGetCircularIndex(t *testing.T) {
             1,
         },
         {
-            "Should return 2 for the index 12 given a slice of 10 items.",
+            "Should return 3 for the index 3 given a slice of 5 items.",
             5,
             3,
             3,

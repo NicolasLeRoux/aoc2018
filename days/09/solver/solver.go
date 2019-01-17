@@ -18,7 +18,9 @@ func parse(input string) (int, int) {
 }
 
 func getCircularIndex(length, index int) int {
-    if length == index {
+    if length == 1 {
+        return 1
+    } else if length == index {
         return index
     } else {
         return index % length
