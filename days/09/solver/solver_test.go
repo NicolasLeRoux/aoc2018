@@ -76,3 +76,9 @@ func TestParse(t *testing.T) {
         })
     }
 }
+
+func BenchmarkSolvePartOne(t *testing.B) {
+    for i := 0; i < t.N; i++ {
+        SolvePartOne("10 players; last marble is worth 1618 points")
+    }
+}
