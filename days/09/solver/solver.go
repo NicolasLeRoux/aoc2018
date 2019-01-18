@@ -16,13 +16,3 @@ func parse(input string) (int, int) {
 
     return nbPlayers, lastMarblePoints
 }
-
-func getCircularIndex(length, index int) int {
-    if length == 1 {
-        return 1
-    } else if length == index {
-        return index
-    } else {
-        return index % length
-    }
-}
