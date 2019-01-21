@@ -12,6 +12,15 @@ type Point struct {
     vy int
 }
 
+func (p Point) next() Point {
+    return Point{
+        px: p.px + p.vx,
+        py: p.py + p.vy,
+        vx: p.vx,
+        vy: p.vy,
+    }
+}
+
 func SolvePartOne(inputs []string) string {
     return ""
 }
