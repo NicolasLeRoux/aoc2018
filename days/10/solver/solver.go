@@ -21,7 +21,7 @@ func (p Point) next() Point {
     }
 }
 
-func SolvePartOne(inputs []string) string {
+func SolvePartOne(inputs []string) (string, int) {
     points := make([]Point, 0, len(inputs))
 
     var pxMinRef, pxMaxRef, pyMinRef, pyMaxRef int = 0, 0, 0, 0
@@ -48,6 +48,7 @@ func SolvePartOne(inputs []string) string {
     isSmaller := true
 
     newPoints := make([]Point, len(points))
+    iter := 0
     for isSmaller {
         var pxMin, pxMax, pyMin, pyMax = 0, 0, 0, 0
 
@@ -79,6 +80,8 @@ func SolvePartOne(inputs []string) string {
             pxMaxRef = pxMax
             pyMinRef = pyMin
             pyMaxRef = pyMax
+
+            iter++
         }
         area = newArea
     }
@@ -111,7 +114,7 @@ func SolvePartOne(inputs []string) string {
 
     text := strings.Join(letters, "")
 
-    return text
+    return text, iter
 }
 
 func parse(lign string) Point {

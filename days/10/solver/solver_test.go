@@ -7,7 +7,7 @@ import (
 
 func TestSolvePartOne(t *testing.T) {
     suites := []struct {
-        description string; inputs []string; expected string
+        description string; inputs []string; expectedA string; expectedB int
     }{
         {
             "Should display 'HI' after 3 seconds with the given points.",
@@ -45,17 +45,20 @@ func TestSolvePartOne(t *testing.T) {
                 "position=<-3,  6> velocity=< 2, -1>",
             },
             "#...#..###\n#...#...#.\n#...#...#.\n#####...#.\n#...#...#.\n#...#...#.\n#...#...#.\n#...#..###\n",
+            3,
         },
     }
 
     for _, suite := range suites {
         t.Run(suite.description, func(t *testing.T) {
-            output := SolvePartOne(suite.inputs)
+            outputA, outputB := SolvePartOne(suite.inputs)
 
-            if output != suite.expected {
-                t.Errorf("TestSolvePartOne('[...]') got %s but expect %s",
-                         output,
-                         suite.expected)
+            if outputA != suite.expectedA || outputB != suite.expectedB {
+                t.Errorf("TestSolvePartOne('[...]') got %s and %d but expect %s and %d",
+                         outputA,
+                         outputB,
+                         suite.expectedA,
+                         suite.expectedB)
             }
         })
     }

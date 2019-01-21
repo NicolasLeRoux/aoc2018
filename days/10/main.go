@@ -18,8 +18,9 @@ func main() {
     points := strings.Split(string(dat), "\n")
 
     start := time.Now()
-    resultPartOne := solver.SolvePartOne(points)
+    resultPartOne, resultPartTwo := solver.SolvePartOne(points)
     t := time.Now()
     elapsed := t.Sub(start)
-    fmt.Printf("Answer part one: %d (%+v)\n", resultPartOne, elapsed)
+    fmt.Printf("Answer part one: %s (%+v)\n", resultPartOne, elapsed)
+    fmt.Printf("Answer part one: %d (Idem)\n", resultPartTwo)
 }
