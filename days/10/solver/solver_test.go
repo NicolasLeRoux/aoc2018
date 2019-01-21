@@ -44,7 +44,7 @@ func TestSolvePartOne(t *testing.T) {
                 "position=<14,  7> velocity=<-2,  0>",
                 "position=<-3,  6> velocity=< 2, -1>",
             },
-            "HI",
+            "#...#..###\n#...#...#.\n#...#...#.\n#####...#.\n#...#...#.\n#...#...#.\n#...#...#.\n#...#..###\n",
         },
     }
 
