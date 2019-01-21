@@ -68,17 +68,17 @@ func TestParse(t *testing.T) {
         {
             "Should return (-3, 6) as position and (2, -1) as velocity.",
             "position=<-3,  6> velocity=< 2, -1>",
-            Point{px: -3, py: 6, vx: 2, vy: -1},
+            Point{-3, 6, 2, -1},
         },
         {
             "Should return (10, -3) as position and (-1, 1) as velocity.",
             "position=<10, -3> velocity=<-1,  1>",
-            Point{px: 10, py: -3, vx: -1, vy: 1},
+            Point{10, -3, -1, 1},
         },
         {
             "Should return (20597, -20297) as position and (-2, 2) as velocity.",
             "position=< 20597, -20297> velocity=<-2,  2>",
-            Point{px: 20597, py: -20297, vx: -2, vy: 2},
+            Point{20597, -20297, -2, 2},
         },
     }
 

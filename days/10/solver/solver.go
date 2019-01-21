@@ -3,21 +3,22 @@ package solver
 import (
     "strings"
     "strconv"
+    "fmt"
 )
 
 type Point struct {
-    px int
-    py int
-    vx int
-    vy int
+    Px int
+    Py int
+    Vx int
+    Vy int
 }
 
 func (p Point) next() Point {
     return Point{
-        px: p.px + p.vx,
-        py: p.py + p.vy,
-        vx: p.vx,
-        vy: p.vy,
+        Px: p.Px + p.Vx,
+        Py: p.Py + p.Vy,
+        Vx: p.Vx,
+        Vy: p.Vy,
     }
 }
 
